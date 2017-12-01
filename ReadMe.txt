@@ -12,14 +12,14 @@
 2、引入组件
 
 3、在页面引用组件
-        <fei-paging
+        <fei-pager
                 ng-if="rmc.pages.length>0"
                 pager="rmc.pager"
                 page-array="rmc.pages"
                 local-page-no="rmc.pager.pageNum"
                 update-pager="rmc.updatePager($event)"
                 go-page="rmc.search();">
-        </fei-paging>
+        </fei-pager>
 
 4、指令参数说明
         ng-if:         数据有分页时才显示分页组件
