@@ -3,9 +3,8 @@
  * Date:   2017/11/30
  * Author: fei
  * Version:2.0.0
- * @type {{restrict: string, bindings: {paging: string, pageArray: string, localPageNo: string, updatePager: string, goPage: string}, templateUrl: string, controller: feiPaging.controller}}
  */
-var feiPaging = {
+var feiPager = {
     restrict: 'E',
     bindings: {
         pager: "<",        // 分页参数，包含当前页码pageNum，分页大小pageSize，起始页码startPageNum
@@ -14,7 +13,7 @@ var feiPaging = {
         updatePager: "&",  // 分页页码同步事件（事件输出：将下一个要查询的页码返回）
         goPage: "&"        // 分页查询事件（事件输出：调用实际分页查询函数）
     },
-    templateUrl: "app/components/pagingComponent/paging.html",     // 分页组件模版Url（这个值，根据实际项目作调整）
+    templateUrl: "pagerComponent/pager.html",     // 分页组件模版Url（这个值，根据实际项目作调整）
     controller: function () {
         var fp = this;
         fp.$onInit = function () {                                 // $onInit生命周期勾子
@@ -79,5 +78,5 @@ var feiPaging = {
         };
     }
 };
-app.component("feiPaging", feiPaging);
+app.component("feiPager", feiPager);
 
