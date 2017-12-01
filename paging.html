@@ -1,0 +1,47 @@
+<!--Name:    AngularJS 分页组件-->
+<!--Date:    2017/11/30-->
+<!--Author:  fei-->
+<!--Version: 2.0.0-->
+
+<style>
+    .active-page{
+        color: white !important;
+        background: #5daee3 !important;
+    }
+    .in-active-page{
+        color: #ccc !important;
+        background: white !important;
+    }
+    .pagination a{
+        cursor: pointer;
+    }
+    .disabled-page{
+        color: white !important;
+        background: #efefef !important;
+        cursor: not-allowed;
+        pointer-events:none;
+    }
+</style>
+
+<div class="row content-paging text-right">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <ul class="pagination">
+            <li ng-click="$ctrl.turnPage('first', $ctrl.localPageNo);">
+                <a ng-class="{true: 'disabled-page'}[$ctrl.pager.startPageNum==$ctrl.pager.pageNum]">首页</a>
+            </li>
+            <li ng-click="$ctrl.turnPage('pre', $ctrl.localPageNo);">
+                <a ng-class="{true: 'disabled-page'}[$ctrl.pager.startPageNum==$ctrl.pager.pageNum]">上一页</a>
+            </li>
+            <li ng-click="$ctrl.turnPage('local', x);" ng-show="$index>=$ctrl.pageMin && $index<=$ctrl.pageMax" ng-repeat="x in $ctrl.pageArray track by $index">
+                <a ng-if="0===$ctrl.pager.startPageNum" ng-class="{true: 'active-page'}[x==$ctrl.pager.pageNum]">{{x+1}}</a>
+                <a ng-if="1===$ctrl.pager.startPageNum" ng-class="{true: 'active-page'}[x==$ctrl.pager.pageNum]">{{x}}</a>
+            </li>
+            <li ng-click="$ctrl.turnPage('next', $ctrl.localPageNo);">
+                <a ng-class="{true: 'disabled-page'}[$ctrl.pageArray[$ctrl.pageArray.length-1]==$ctrl.pager.pageNum]">下一页</a>
+            </li>
+            <li ng-click="$ctrl.turnPage('last', $ctrl.localPageNo);">
+                <a ng-class="{true: 'disabled-page'}[$ctrl.pageArray[$ctrl.pageArray.length-1]==$ctrl.pager.pageNum]">尾页</a>
+            </li>
+        </ul>
+    </div>
+</div>
