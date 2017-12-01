@@ -21,60 +21,62 @@ var feiPager = {
             fp.pageMin = fp.pager.startPageNum;                    // 可以显示的分页页码最小值
             fp.pageMax = fp.pager.startPageNum + fp.pageSpan;      // 可以显示的分页页码最大值
         };
-        fp.turnPage = function (mark, num) {
-            if ("first"===mark) {// 首页
-                fp.pageMin = fp.pager.startPageNum;
-                fp.pageMax = fp.pager.startPageNum + fp.pageSpan;
-                fp.localPageNo = fp.pager.startPageNum;
-            } else if ("pre"===mark) {// 上一页
-                if (num === fp.pageMin) {
-                    if (fp.pageMin>fp.pageArray[0]) {
-                        fp.pageMin -= 1;
-                        fp.pageMax -= 1;
+        fp.$postLink = function () {
+            fp.turnPage = function (mark, num) {
+                if ("first"===mark) {// 首页
+                    fp.pageMin = fp.pager.startPageNum;
+                    fp.pageMax = fp.pager.startPageNum + fp.pageSpan;
+                    fp.localPageNo = fp.pager.startPageNum;
+                } else if ("pre"===mark) {// 上一页
+                    if (num === fp.pageMin) {
+                        if (fp.pageMin>fp.pageArray[0]) {
+                            fp.pageMin -= 1;
+                            fp.pageMax -= 1;
+                        }
                     }
-                }
-                if (fp.pager.startPageNum!=num) {
-                    fp.localPageNo = num - 1;
-                }
-            } else if ("local"===mark) {// 选择具体页码
-                if (num === fp.pageMin) {
-                    if (fp.pageMin>fp.pageArray[0]) {
-                        fp.pageMin -= 1;
-                        fp.pageMax -= 1;
+                    if (fp.pager.startPageNum!=num) {
+                        fp.localPageNo = num - 1;
                     }
-                }
-                if (num === fp.pageMax) {
-                    if (fp.pageMax<fp.pageArray[fp.pageArray.length-1]) {
-                        fp.pageMin += 1;
-                        fp.pageMax += 1;
+                } else if ("local"===mark) {// 选择具体页码
+                    if (num === fp.pageMin) {
+                        if (fp.pageMin>fp.pageArray[0]) {
+                            fp.pageMin -= 1;
+                            fp.pageMax -= 1;
+                        }
                     }
-                }
-                fp.localPageNo = num;
-            } else if ("next"===mark) {// 下一页
-                if (num === fp.pageMax) {
-                    if (fp.pageMax<fp.pageArray[fp.pageArray.length-1]) {
-                        fp.pageMin += 1;
-                        fp.pageMax += 1;
+                    if (num === fp.pageMax) {
+                        if (fp.pageMax<fp.pageArray[fp.pageArray.length-1]) {
+                            fp.pageMin += 1;
+                            fp.pageMax += 1;
+                        }
                     }
-                }
-                if (fp.pager.startPageNum<=num<fp.pageArray[fp.pageArray.length-1]) {
-                    fp.localPageNo = num + 1;
-                }
-            } else if ("last"===mark) {// 尾页
-                fp.pageMin = fp.pageArray[fp.pageArray.length-1] -fp.pageSpan;
-                fp.pageMax = fp.pageArray[fp.pageArray.length-1];
-                fp.localPageNo = fp.pageArray[fp.pageArray.length-1];
-            }
-            fp.updatePager({//调用fp.updatePager函数更新分页页码
-                $event: {
-                    pager: {
-                        startPageNum: fp.pager.startPageNum,
-                        pageNum:      fp.localPageNo,
-                        pageSize:     fp.pager.pageSize
+                    fp.localPageNo = num;
+                } else if ("next"===mark) {// 下一页
+                    if (num === fp.pageMax) {
+                        if (fp.pageMax<fp.pageArray[fp.pageArray.length-1]) {
+                            fp.pageMin += 1;
+                            fp.pageMax += 1;
+                        }
                     }
+                    if (fp.pager.startPageNum<=num<fp.pageArray[fp.pageArray.length-1]) {
+                        fp.localPageNo = num + 1;
+                    }
+                } else if ("last"===mark) {// 尾页
+                    fp.pageMin = fp.pageArray[fp.pageArray.length-1] -fp.pageSpan;
+                    fp.pageMax = fp.pageArray[fp.pageArray.length-1];
+                    fp.localPageNo = fp.pageArray[fp.pageArray.length-1];
                 }
-            });
-            fp.goPage();//调用fp.goPage作分页查询
+                fp.updatePager({//调用fp.updatePager函数更新分页页码
+                    $event: {
+                        pager: {
+                            startPageNum: fp.pager.startPageNum,
+                            pageNum:      fp.localPageNo,
+                            pageSize:     fp.pager.pageSize
+                        }
+                    }
+                });
+                fp.goPage();//调用fp.goPage作分页查询
+            };
         };
     }
 };
